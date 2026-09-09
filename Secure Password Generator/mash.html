@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#100b12" />
+    <title>Mash Secure Password Generator</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23100b12'/%3E%3Cpath d='M39 11a14 14 0 1 0 8.9 24.8L56 44v7h-7v-5h-5v-5h-5.1A14 14 0 0 0 39 11Zm0 8a6 6 0 1 1 0 12 6 6 0 0 1 0-12Z' fill='%23ff71c8'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Mash Secure Password Generator ana sayfa">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img">
+              <rect class="logo-frame" x="1.5" y="1.5" width="61" height="61" rx="18" />
+              <rect class="logo-border" x="5" y="5" width="54" height="54" rx="15" />
+              <circle class="logo-key" cx="32" cy="20" r="11" />
+              <circle class="logo-hole" cx="32" cy="20" r="4" />
+              <path class="logo-key" d="M27 29h10v16h7v6H37v5H27v-5h-7v-6h7Z" />
+            </svg>
+          </span>
+          <span>Mash <span>Secure Password Generator</span></span>
+        </a>
+        <div class="topbar-actions">
+          <div class="language-picker">
+            <button id="language-button" class="language-button" type="button" aria-expanded="false"><span id="language-flag">🇹🇷</span><span id="language-name">Türkçe</span><span class="language-arrow">⌄</span></button>
+            <div id="language-menu" class="language-menu">
+              <button type="button" class="language-option active" data-language="tr"><span>🇹🇷</span> Türkçe</button>
+              <button type="button" class="language-option" data-language="en"><span>🇬🇧</span> English</button>
+            </div>
+          </div>
+          <div class="theme-picker" role="group" aria-label="Tema">
+            <button type="button" class="theme-button active" data-theme="dark">☾ <span data-i18n="darkTheme">Koyu</span></button>
+            <button type="button" class="theme-button" data-theme="light">☼ <span data-i18n="lightTheme">Açık</span></button>
+          </div>
+          <div class="secure-chip"><span class="pulse-dot"></span> <span data-i18n="sessionOnly">Yalnızca bu oturumda saklanır</span></div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow"><span class="eyebrow-line"></span> <span data-i18n="eyebrow">Güvenliğini güçlendir</span></div>
+        <h1><span data-i18n="heroFirst">Şifreni oluştur.</span><br /><em data-i18n="heroSecond">Kontrol sende.</em></h1>
+        <p data-i18n="heroDescription">İhtiyacına uygun, güçlü ve benzersiz şifreler üret. Hiçbir şifre cihazından ayrılmaz.</p>
+      </section>
+
+      <section class="generator-card" aria-label="Şifre oluşturucu">
+        <div class="type-switch" role="tablist" aria-label="Şifre türü">
+          <button class="type-tab active" data-type="memorable" role="tab" aria-selected="true">
+            <span class="tab-icon">✦</span>
+            <span><strong data-i18n="memorableTab">Hatırlanabilir şifre oluştur</strong><small data-i18n="memorableHint">Kelimelerle akılda kalır</small></span>
+          </button>
+          <button class="type-tab" data-type="random" role="tab" aria-selected="false">
+            <span class="tab-icon">⌘</span>
+            <span><strong data-i18n="randomTab">Rastgele şifre oluştur</strong><small data-i18n="randomHint">Maksimum karmaşıklık</small></span>
+          </button>
+        </div>
+
+        <div class="workspace">
+          <aside class="settings-panel">
+            <div class="panel-heading">
+              <div><span class="section-kicker" data-i18n="settings">AYARLAR</span><h2 data-i18n="choosePreferences">Tercihlerini seç</h2></div>
+              <span class="settings-icon">⚙</span>
+            </div>
+
+            <div id="memorable-settings">
+              <div class="control-group">
+                <div class="label-row"><label for="word-count" data-i18n="wordCount">Kelime sayısı</label><output id="word-count-value">5 kelime</output></div>
+                <input id="word-count" type="range" min="1" max="10" value="5" />
+                <div class="range-labels"><span>1</span><span>10</span></div>
+              </div>
+              <div class="control-group">
+                <label for="separator" data-i18n="separator">Kelime ayırıcı</label>
+                <select id="separator">
+                  <option value="dash" data-i18n="dash">Çizgi (-)</option>
+                  <option value="comma" data-i18n="comma">Virgül (,)</option>
+                  <option value="numbers" data-i18n="numbers">Sayılar</option>
+                  <option value="number-symbol" data-i18n="numberSymbol">Sayılar ve semboller</option>
+                  <option value="dot" data-i18n="dot">Nokta (.)</option>
+                  <option value="space" data-i18n="space">Boşluk</option>
+                  <option value="underscore" data-i18n="underscore">Alt çizgi (_)</option>
+                </select>
+              </div>
+              <div class="toggle-list">
+                <label class="toggle-row"><span><b data-i18n="uppercase">Büyük harf</b><small data-i18n="wordUppercaseHint">Her kelime büyük harfle başlasın</small></span><input id="mem-uppercase" type="checkbox" checked /><i></i></label>
+                <label class="toggle-row"><span><b data-i18n="containsNumbers">Sayı içerir</b><small data-i18n="wordNumbersHint">Kelimelerin sonuna rakam ekle</small></span><input id="mem-digits" type="checkbox" checked /><i></i></label>
+              </div>
+            </div>
+
+            <div id="random-settings" class="hidden">
+              <div class="control-group">
+                <div class="label-row"><label for="char-count" data-i18n="characterLength">Karakter uzunluğu</label><output id="char-count-value">20 karakter</output></div>
+                <input id="char-count" type="range" min="4" max="64" value="20" />
+                <div class="range-labels"><span>4</span><span>64</span></div>
+              </div>
+              <div class="toggle-list">
+                <label class="toggle-row"><span><b data-i18n="uppercase">Büyük harf</b><small data-i18n="uppercaseHint">A–Z karakterlerini dahil et</small></span><input id="random-uppercase" type="checkbox" checked /><i></i></label>
+                <label class="toggle-row"><span><b data-i18n="numbers">Sayılar</b><small data-i18n="numbersHint">0–9 karakterlerini dahil et</small></span><input id="random-digits" type="checkbox" checked /><i></i></label>
+                <label class="toggle-row"><span><b data-i18n="specialCharacters">Özel karakterler</b><small data-i18n="specialHint">! @ # $ % gibi semboller</small></span><input id="random-special" type="checkbox" checked /><i></i></label>
+              </div>
+            </div>
+            <button id="generate-button" class="generate-button"><span data-i18n="generate">Yeni şifre oluştur</span><b>↗</b></button>
+          </aside>
+
+          <div class="result-panel">
+            <div class="result-topline"><span class="section-kicker" data-i18n="generatedPassword">OLUŞTURULAN ŞİFRE</span><span id="history-count">0 şifre üretildi</span></div>
+            <div class="password-box">
+              <div id="password-output" class="password-output" aria-live="polite">İntikam9-Temiz2-Rafine8-Pamuk3-Kırılmış0</div>
+              <button id="copy-button" class="copy-button" title="Şifreyi kopyala"><span class="copy-icon">▣</span><span data-i18n="copy">Kopyala</span></button>
+            </div>
+            <div class="result-meta">
+              <div class="strength">
+                <span class="meta-label" data-i18n="securityLevel">GÜVENLİK SEVİYESİ</span>
+                <div class="strength-line"><span id="strength-text" class="strength-text strong">Güçlü</span><span id="strength-bars" class="strength-bars"><i></i><i></i><i></i><i></i></span></div>
+              </div>
+              <div class="length-meta"><span class="meta-label" data-i18n="length">UZUNLUK</span><strong id="length-value">45 karakter</strong></div>
+            </div>
+            <div id="notice" class="notice"><span>✓</span><span>Bu şifre daha önce kullanılmadı.</span></div>
+            <div class="history-panel">
+              <div class="history-heading"><span class="meta-label" data-i18n="historyTitle">ŞİFRE GEÇMİŞİ</span><div class="history-controls"><span id="history-size">0</span><button id="history-toggle" class="history-toggle" type="button" aria-label="Şifre geçmişini göster" title="Şifre geçmişini göster"><span aria-hidden="true">👁</span></button></div></div>
+              <div id="history-list" class="history-list hidden"></div>
+            </div>
+            <div class="tip-card"><span class="tip-icon">✦</span><p><strong data-i18n="tip">İpucu</strong><br /><span data-i18n="tipText">Uzun ve benzersiz şifreler hesaplarını korumanın en kolay yoludur.</span></p></div>
+          </div>
+        </div>
+      </section>
+      <footer><span>MASH SECURE PASSWORD GENERATOR</span><span><span data-i18n="footer">Şifrelerin cihazından ayrılmaz · Güvenli üretim</span> · <a class="creator-link" href="https://github.com/mashsys" target="_blank" rel="noopener noreferrer">Created by Zeynep Sude (mash) · Open source</a></span></footer>
+    </main>
+    <div id="toast" class="toast" role="status" data-i18n="copied">Şifre panoya kopyalandı</div>
+    <script src="app.js"></script>
+  </body>
+</html>
